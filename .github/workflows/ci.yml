@@ -69,3 +69,39 @@ jobs:
         context: .
         push: false
         tags: knn-ml-app:latest
+        
+    - name: Build DagsHub Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: Dockerfile.dagshub
+        push: false
+        tags: knn-ml-app:dagshub
+
+  mlflow-test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.11"
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        
+    - name: Test MLflow integration
+      run: |
+        python -m app.app
+        # 检查是否生成了MLflow运行记录
+        if [ -d "./mlruns" ]; then
+          echo "MLflow成功记录了实验"
+          ls -la ./mlruns
+        else
+          echo "MLflow未生成实验记录"
+          exit 1
+        fi
