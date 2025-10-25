@@ -101,6 +101,7 @@ jobs:
       with:
         context: .
         push: false
+        load: true 
         tags: knn-ml-app:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
@@ -134,12 +135,11 @@ jobs:
     - name: Run bandit security linter
       run: bandit -r app/ -f json -o bandit-report.json || true
       
-    - name: Upload bandit report
+    - name: Upload build artifacts
       uses: actions/upload-artifact@v4
-      if: always()
       with:
-        name: bandit-report
-        path: bandit-report.json
+        name: build-artifacts
+        path: ./build/output/*
 
   dependency-update:
     name: Dependency Update Check
