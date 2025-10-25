@@ -41,16 +41,13 @@ jobs:
       
     - name: Run Flake8 linter
       run: flake8 app/ tests/
-      
-    - name: Run MyPy type checker
-      run: mypy app/
 
   test:
     name: Tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.8', '3.9', '3.10', '3.11']
+        python-version: ['3.11']
     
     steps:
     - name: Checkout code

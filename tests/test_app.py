@@ -6,7 +6,9 @@ import numpy as np
 import pytest
 
 # 将父目录添加到sys.path中
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))  # noqa: E501
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+)  # noqa: E501
 
 from app import KNNModel, create_synthetic_data, load_sample_data  # noqa: E402
 

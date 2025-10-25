@@ -104,7 +104,10 @@ def load_sample_data() -> Tuple[np.ndarray, np.ndarray]:
 
 
 def create_synthetic_data(
-    n_samples: int = 1000, n_features: int = 4, n_classes: int = 3, random_state: int = 42
+    n_samples: int = 1000,
+    n_features: int = 4,
+    n_classes: int = 3,
+    random_state: int = 42,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """
     创建合成数据集
